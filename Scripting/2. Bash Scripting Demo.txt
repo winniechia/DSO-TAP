@@ -1,0 +1,25 @@
+Task Bash Scripting Demo
+
+Objective
+
+Demonstrate familiarity with Bash scripting and common Linux command-line utilities.
+
+Completed
+
+Created project_check.sh.
+Used Bash commands including echo, whoami, pwd, ls, and Git commands (git status, git branch, git log).
+Successfully executed the script in Git Bash.
+Committed and pushed the script to GitHub.
+
+Skills Demonstrated
+
+Bash scripting
+Linux command-line operations
+Git integration
+Basic automation
+
+
+
+
+
+ 
