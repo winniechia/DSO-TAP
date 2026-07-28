@@ -1,0 +1,1 @@
+Demonstrated the ability to use Visual Studio Code to create, run, and test Python code, manage changes with Source Control, commit updates, and synchronize the project with GitHub.
