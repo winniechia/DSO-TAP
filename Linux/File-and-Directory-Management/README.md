@@ -16,6 +16,20 @@ By completing the lab, you will practice how to:
 
 ---
 
+## Lab Environment
+
+This lab was completed in a Linux environment using **WSL (Windows Subsystem for Linux)**.
+
+Example working directory:
+
+```text
+/mnt/c/users/winnie/AWS Solution Architect Exam Study/DSO-TAP/linux-file-demo
+```
+
+This is important because Linux commands such as `pwd`, `touch`, `find`, `cp`, `mv`, and `rm` are executed inside the Linux shell rather than Windows Command Prompt or PowerShell.
+
+---
+
 ## 1. Check the Current Directory
 
 Run:
@@ -25,12 +39,6 @@ pwd
 ```
 
 `pwd` means **print working directory**. It tells you where you currently are in the filesystem.
-
-Example:
-
-```text
-/home/winnie
-```
 
 Think of it as asking Linux:
 
@@ -60,21 +68,9 @@ Think of `ls` as asking:
 
 ## 3. Create and Enter a Project Directory
 
-Create a directory:
-
 ```bash
 mkdir linux-file-demo
-```
-
-Enter it:
-
-```bash
 cd linux-file-demo
-```
-
-Verify your location:
-
-```bash
 pwd
 ```
 
@@ -82,31 +78,14 @@ pwd
 
 ## 4. Create Directories
 
-Create several directories:
-
 ```bash
 mkdir documents
 mkdir scripts
 mkdir backups
-```
-
-Verify:
-
-```bash
-ls
-```
-
-Expected structure:
-
-```text
-backups  documents  scripts
-```
-
-You can create nested directories with `mkdir -p`:
-
-```bash
 mkdir -p projects/demo/config
 ```
+
+The lab created a structure containing `documents`, `scripts`, `backups`, and the nested `projects/demo/config` directory.
 
 ---
 
@@ -117,48 +96,43 @@ Create empty files with `touch`:
 ```bash
 touch documents/notes.txt
 touch scripts/hello.sh
-touch README.md
 ```
 
-View the project structure:
+Inspect the directory tree:
 
 ```bash
 find .
 ```
 
-Conceptually:
+During the completed lab, `find .` showed the created directories, including:
 
 ```text
-linux-file-demo/
-│
-├── README.md
-├── documents/
-│   └── notes.txt
-├── scripts/
-│   └── hello.sh
-├── backups/
-└── projects/
-    └── demo/
-        └── config/
+.
+./backups
+./documents
+./projects
+./projects/demo
+./projects/demo/config
+./scripts
 ```
 
 ---
 
 ## 6. Add and View File Content
 
-Add text to a file:
+Add text to the notes file:
 
 ```bash
 echo "Linux file management practice" > documents/notes.txt
 ```
 
-Display the file:
+Display it with:
 
 ```bash
 cat documents/notes.txt
 ```
 
-Other useful commands for viewing files include:
+Other useful viewing commands include:
 
 ```bash
 less documents/notes.txt
@@ -170,73 +144,70 @@ tail documents/notes.txt
 
 ## 7. Copy a File
 
-Copy the notes file into the backup directory:
+The lab copied the notes file into the backup directory:
 
 ```bash
 cp documents/notes.txt backups/notes-backup.txt
 ```
 
-Verify:
+Verification:
 
 ```bash
 ls backups
+```
+
+Observed result:
+
+```text
+notes-backup.txt
 ```
 
 Think of `cp` as:
 
 > **Make a photocopy.**
 
-The original file remains in its original location.
+The original remains in its original location.
 
 ---
 
 ## 8. Move and Rename Files
 
-Move the README file into the documents directory:
-
-```bash
-mv README.md documents/
-```
-
-Rename the notes file:
+The notes file was renamed with:
 
 ```bash
 mv documents/notes.txt documents/linux-notes.txt
 ```
 
-The `mv` command can therefore be used for both:
-
-- Moving a file or directory
-- Renaming a file or directory
+The `mv` command can be used to both move and rename filesystem objects.
 
 Think of `mv` as:
 
-> **Pick something up and put it somewhere else.**
+> **Pick something up and put it somewhere else — or give it a new name.**
 
 ---
 
 ## 9. Search for Files
 
-Find all `.txt` files under the current directory:
+The completed lab searched for all `.txt` files:
 
 ```bash
 find . -name "*.txt"
 ```
 
-Example output:
+Observed result:
 
 ```text
-./documents/linux-notes.txt
 ./backups/notes-backup.txt
+./documents/linux-notes.txt
 ```
 
-Search inside a file for text:
+To search inside files, use `grep`:
 
 ```bash
 grep "Linux" documents/linux-notes.txt
 ```
 
-An easy distinction is:
+Easy distinction:
 
 ```text
 find = Where is the file?
@@ -248,23 +219,11 @@ grep = Where is the text?
 
 ## 10. Relative and Absolute Paths
 
-An **absolute path** begins from the filesystem root `/` and describes the complete location.
+An **absolute path** starts at the filesystem root `/` and describes the complete location.
 
-Example:
+A **relative path** describes a location relative to the current working directory.
 
-```text
-/home/winnie/linux-file-demo/documents/linux-notes.txt
-```
-
-A **relative path** describes a location relative to the directory you are currently in.
-
-Example:
-
-```text
-documents/linux-notes.txt
-```
-
-Useful path shortcuts include:
+Useful shortcuts include:
 
 ```text
 .   current directory
@@ -277,33 +236,71 @@ Useful path shortcuts include:
 
 ## 11. Delete Files and Directories
 
-Delete a file:
+The completed lab cleaned up the temporary resources with:
 
 ```bash
 rm backups/notes-backup.txt
-```
-
-Delete an empty directory:
-
-```bash
 rmdir backups
+rm -r projects
 ```
 
-Delete a directory and its contents recursively:
+This demonstrated three different operations:
 
-```bash
-rm -r projects
+```text
+rm file       → remove a file
+rmdir dir     → remove an empty directory
+rm -r dir     → recursively remove a directory and its contents
 ```
 
 ### Important Safety Note
 
-Be careful with `rm`, especially recursive deletion.
-
-Linux command-line deletion generally does not behave like moving a file into a desktop Recycle Bin. Verify the path before executing destructive commands.
+Be especially careful with recursive deletion. Linux command-line deletion generally does not behave like moving something to a desktop Recycle Bin. Always verify the target path before running destructive commands.
 
 ---
 
-## 12. Key Commands
+## 12. Completed Hands-On Workflow
+
+The lab successfully demonstrated the following sequence:
+
+```text
+Create Directories
+       ↓
+Create Files
+       ↓
+Write File Content
+       ↓
+Copy File
+       ↓
+Verify Copy
+       ↓
+Rename File
+       ↓
+Find Files
+       ↓
+Delete File
+       ↓
+Remove Empty Directory
+       ↓
+Recursively Remove Directory Tree
+```
+
+Key commands executed included:
+
+```bash
+find .
+echo "Linux file management practice" > documents/notes.txt
+cp documents/notes.txt backups/notes-backup.txt
+ls backups
+mv documents/notes.txt documents/linux-notes.txt
+find . -name "*.txt"
+rm backups/notes-backup.txt
+rmdir backups
+rm -r projects
+```
+
+---
+
+## 13. Key Commands
 
 | Command | Purpose |
 | --- | --- |
@@ -323,52 +320,39 @@ Linux command-line deletion generally does not behave like moving a file into a 
 
 ---
 
-## 13. 3rd-Grade Analogy — A School Building
+## 14. 3rd-Grade Analogy — A School Building
 
 Think of the Linux filesystem as a **big school building**.
 
 ```text
 Filesystem = School
+Directory  = Classroom
+File       = Notebook
 
-Directory = Classroom
-
-File = Notebook
-
-pwd = Which classroom am I in?
-
-ls = What is in this classroom?
-
-cd = Walk to another classroom
-
+pwd   = Which classroom am I in?
+ls    = What is in this classroom?
+cd    = Walk to another classroom
 mkdir = Create a new classroom
-
 touch = Get a new notebook
-
-cp = Photocopy a notebook
-
-mv = Move or rename a notebook
-
-find = Find a notebook
-
-cat = Read the notebook
-
-rm = Throw the notebook away
+cp    = Photocopy a notebook
+mv    = Move or rename a notebook
+find  = Find a notebook
+cat   = Read the notebook
+rm    = Throw the notebook away
 ```
-
-This gives us a simple mental model for navigating and organizing Linux.
 
 ---
 
-## 14. Skills Demonstrated
+## 15. Skills Demonstrated
 
-After completing this lab, you have demonstrated the ability to:
+This hands-on exercise demonstrates the ability to:
 
 ```text
 Navigate
    ↓
 Create
    ↓
-View
+Write / View
    ↓
 Copy
    ↓
@@ -379,10 +363,12 @@ Search
 Delete Safely
 ```
 
-These file and directory operations are foundational Linux skills used in system administration, cloud engineering, DevOps, scripting, containers, CI/CD, and infrastructure automation.
+These are foundational Linux skills used in system administration, cloud engineering, DevOps, scripting, containers, CI/CD, and infrastructure automation.
 
 ---
 
-## One-Sentence Summary
+## Summary
+
+The hands-on lab was completed successfully in WSL/Linux. Files and directories were created, populated, copied, renamed, searched, verified, and cleaned up using native Linux command-line tools.
 
 > **Linux file management means knowing where you are and being able to safely create, view, copy, move, organize, search, and remove files and directories from the command line.**
