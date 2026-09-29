@@ -21,11 +21,6 @@ For storage administration, I created application data, applied least-privilege 
 
 **Memory aid:** **Server → Network → Storage → Backup → Restore**
 
-### 中文 Demo 提示
-
-> 我先確認 Server 的基本健康狀態與資源，再確認 Network 的 IP、Subnet、Gateway、Routing、Internet 與 DNS 都正常。接著我管理 Storage 與檔案權限，最後建立 Backup、驗證完整性、模擬資料遺失，再從 Backup Restore 並重新驗證。
-
-**記憶順序：** **Server → Network → Storage → Backup → Restore**
 
 ## 3rd-Grade Analogy
 
