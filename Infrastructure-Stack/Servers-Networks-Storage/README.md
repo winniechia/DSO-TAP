@@ -5,6 +5,10 @@
 **Lab date:** September 29, 2026  
 **Environment:** Ubuntu on WSL2, host `msi-aegis-zs2`
 
+## Excel Competency Summary
+
+Demonstrated hands-on administration of server, network, and storage components in Linux/WSL2. Validated server health/resources, IP/subnet/gateway/routing, Internet and DNS connectivity, listening ports, storage usage, and least-privilege permissions. Created and verified a SHA-256 backup, simulated data loss, restored the file, and confirmed data integrity.
+
 ## Demo Summary / Presentation Talking Points
 
 For this competency, I demonstrated the three core infrastructure components for a small development team: **server, network, and storage**.
