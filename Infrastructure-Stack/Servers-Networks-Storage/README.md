@@ -5,6 +5,28 @@
 **Lab date:** September 29, 2026  
 **Environment:** Ubuntu on WSL2, host `msi-aegis-zs2`
 
+## Demo Summary / Presentation Talking Points
+
+For this competency, I demonstrated the three core infrastructure components for a small development team: **server, network, and storage**.
+
+I first validated the Linux server environment by checking its hostname, kernel, current time, uptime, system load, memory, and filesystem capacity. I then inspected the network configuration, identified the IP address, subnet, default gateway, and route, and verified both external IP connectivity and DNS resolution. I also inspected listening network sockets.
+
+For storage administration, I created application data, applied least-privilege file permissions, checked disk usage, and created a backup. I verified the backup with SHA-256, deliberately removed the original file, restored it from backup, and verified the restored file again.
+
+**Key lesson:** Maintaining infrastructure is not just creating resources. A SysAdmin must be able to **inspect, secure, troubleshoot, verify, back up, and recover** them.
+
+### 30-Second Demo Version
+
+> I demonstrated server, network, and storage administration for a small development environment. I checked the Linux server's health and resources, validated its IP address, subnet, gateway, routing, Internet connectivity, DNS, and listening ports, then managed application storage and permissions. Finally, I created and verified a backup, simulated data loss, restored the file, and verified its integrity again.
+
+**Memory aid:** **Server → Network → Storage → Backup → Restore**
+
+### 中文 Demo 提示
+
+> 我先確認 Server 的基本健康狀態與資源，再確認 Network 的 IP、Subnet、Gateway、Routing、Internet 與 DNS 都正常。接著我管理 Storage 與檔案權限，最後建立 Backup、驗證完整性、模擬資料遺失，再從 Backup Restore 並重新驗證。
+
+**記憶順序：** **Server → Network → Storage → Backup → Restore**
+
 ## 3rd-Grade Analogy
 
 A small development team's infrastructure is like a school:
