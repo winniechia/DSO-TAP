@@ -77,6 +77,14 @@ docker run -d --name dso-tap-web-best -p 8082:8080 dso-tap-web:best-practices
 
 **Limitations / further hardening:** The base uses a moving `:alpine` tag. For stricter reproducibility, pin a vetted version or digest and adopt a regular update process. This lab did not perform vulnerability scanning, SBOM generation, or image signing; do not interpret the checks above as proof of those controls.
 
+## Competency Interview Answer
+
+**Question: What are Docker container build best practices?**
+
+Docker container build best practices include using a minimal and trusted base image, running applications as a non-root user, excluding unnecessary files with `.dockerignore`, setting proper file ownership, implementing health checks, using controlled image versions, and validating the image before deployment.
+
+In my hands-on lab, I applied these practices to an Nginx container and verified that it ran as UID 101, passed its health check, and returned HTTP 200.
+
 ## 30-Second Demo Summary
 
 > I built a Docker image for a static Nginx application using an unprivileged Alpine-based image. I reduced the build context with a .dockerignore file, copied the application with ownership assigned to UID 101, exposed port 8080, and added an HTTP health check. The build finished successfully. I started the container with host port 8082, confirmed Docker reported it healthy, verified it runs as nginx UID 101 rather than root, and received HTTP 200 from the host. Image inspection also confirmed the configured user, exposed port, and health check.
