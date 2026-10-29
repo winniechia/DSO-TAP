@@ -85,6 +85,60 @@ Docker container build best practices include using a minimal and trusted base i
 
 In my hands-on lab, I applied these practices to an Nginx container and verified that it ran as UID 101, passed its health check, and returned HTTP 200.
 
+## Learning Review — Steps Taken and Lessons Learned
+
+### Steps We Took (and Why)
+
+| Step | Action | Why it mattered |
+| --- | --- | --- |
+| 1 | Checked Docker Desktop / WSL integration using `docker version`. | Confirmed the Docker client and engine were available after a temporary WSL integration issue. |
+| 2 | Returned to `~/dso-tap-container-lab`. | Kept training changes separate from the Love Fills Memory project. |
+| 3 | Created `.dockerignore` to exclude Git metadata, environment files, logs, and unrelated dependencies. | Reduced unnecessary build context and the risk of accidentally including sensitive files. |
+| 4 | Wrote `Dockerfile.best-practices` using `nginxinc/nginx-unprivileged:alpine`. | Selected a small, non-root-oriented Nginx base image. |
+| 5 | Added `COPY --chown=101:101`, `EXPOSE 8080`, and an HTTP `HEALTHCHECK`. | Set file ownership, documented the service port, and defined a runtime health probe. |
+| 6 | Built `dso-tap-web:best-practices`. | Verified the Dockerfile could produce an image successfully. |
+| 7 | Ran `dso-tap-web-best` with `-p 8082:8080`. | Published the container service on an unused host port. |
+| 8 | Checked `docker ps`, `docker exec ... id`, and `curl -I`. | Confirmed `healthy`, non-root UID 101, and external HTTP 200. |
+| 9 | Inspected image configuration. | Verified `User=101`, exposed port `8080/tcp`, and the configured health check. |
+
+### Commands Explained
+
+| Command | Purpose |
+| --- | --- |
+| `docker version` | Check client and server connectivity. |
+| `docker build -f Dockerfile.best-practices -t dso-tap-web:best-practices .` | Build a named image from the specified Dockerfile and current build context. |
+| `docker run -d --name dso-tap-web-best -p 8082:8080 dso-tap-web:best-practices` | Start a detached container and map host port 8082 to container port 8080. |
+| `docker ps --filter name=dso-tap-web-best` | Check running status, health, and port publishing. |
+| `docker exec dso-tap-web-best id` | Verify the actual runtime user. |
+| `curl -I http://localhost:8082` | Check external HTTP response headers. |
+| `docker image inspect dso-tap-web:best-practices` | Examine the image's user, exposed ports, and health-check configuration. |
+
+### Problem Encountered and Resolution
+
+**Problem:** Docker was initially unavailable from the Ubuntu WSL2 terminal even though Docker Desktop's Ubuntu integration was enabled.
+
+**Resolution:** Exited Ubuntu, ran `wsl --shutdown` from **Windows PowerShell** (not from inside Ubuntu), reopened Ubuntu, and confirmed that `docker version` displayed both Client and Server. Then resumed the isolated lab.
+
+**Why this matters:** When a command is missing, distinguish between an application problem, an unavailable CLI, and an integration issue before modifying files or reinstalling software.
+
+### Lessons Learned
+
+1. A successful image build does **not** prove the container runs correctly; test runtime behavior separately.
+2. A non-root base image and `COPY --chown` support least privilege; verify the actual runtime UID.
+3. `.dockerignore` filters the **build context**; it does not automatically guarantee a smaller final image.
+4. `EXPOSE` is image metadata; `docker run -p` publishes the service to the host.
+5. A configured `HEALTHCHECK` must be observed at runtime rather than assumed to work.
+6. Use meaningful image tags, but pin a vetted version or digest when strict reproducibility is required.
+7. Keep hands-on training isolated from unrelated production or personal projects.
+
+### How to Explain It to an Evaluator
+
+**Plain-English explanation:** I built an Nginx container using an unprivileged Alpine-based image, excluded unnecessary files with `.dockerignore`, assigned ownership to UID 101, declared the service port, and added a health check. I then built and ran the image, checked that Docker reported it healthy, verified that the process ran as a non-root user, and confirmed HTTP 200 from the host. I also inspected the image configuration to verify the settings.
+
+**Memory aid:** **Build → Run → Check User → Check Health → Test HTTP → Inspect Image.**
+
+**Key distinction:** A container that *builds* is not necessarily a container that *works securely and reliably*.
+
 ## 30-Second Demo Summary
 
 > I built a Docker image for a static Nginx application using an unprivileged Alpine-based image. I reduced the build context with a .dockerignore file, copied the application with ownership assigned to UID 101, exposed port 8080, and added an HTTP health check. The build finished successfully. I started the container with host port 8082, confirmed Docker reported it healthy, verified it runs as nginx UID 101 rather than root, and received HTTP 200 from the host. Image inspection also confirmed the configured user, exposed port, and health check.
